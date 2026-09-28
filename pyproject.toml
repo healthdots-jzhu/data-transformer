@@ -7,6 +7,7 @@ name = "data-transformer"
 version = "0.1.0"
 description = "Config-driven detection, validation and conversion of JSON/XML/CSV data into target JSON schemas"
 readme = "README.md"
+license = {file = "LICENSE"}
 requires-python = ">=3.8"
 # jsonschema is a core dependency: any config with a "target_schema" needs it, and loading such a
 # config without it raises ConfigError (output validation is never skipped silently).

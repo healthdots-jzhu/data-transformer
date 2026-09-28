@@ -7,8 +7,7 @@ JSON Schema) lives in a per-data-type config file; the engine has no domain know
     python -m venv .venv
     .venv\Scripts\Activate.ps1                         # PowerShell on Windows
     # macOS/Linux: source .venv/bin/activate
-    pip install -r requirements.txt      # editable install of data_transformer + dependencies
-    # or:  pip install -e ".[xml,test]"
+    python -m pip install -r requirements-dev.txt  # editable install + test and coverage tools
 
     pytest                               # run from the project root
     python -m data_transformer claim.xml --config configs/
@@ -21,6 +20,17 @@ report = transform("claim.xml", "configs/")              # directory, file, dict
 for r in report.results:
     print(r.is_valid, r.errors, r.warnings, r.normalized)
 ```
+
+Run `pytest` after activating `.venv` in your current terminal. Without activation,
+it may use another Python installation with different dependencies. You can also
+run the tests without activating the environment:
+
+```powershell
+.\.venv\Scripts\python.exe -m pytest
+```
+
+Virtual environments contain absolute paths. If you rename or move the project,
+recreate `.venv` at the new location and reinstall `requirements-dev.txt`.
 
 ## Bundled example configs
 
@@ -218,3 +228,7 @@ Reports: `htmlcov_integration/index.html`, `coverage_integration.json`, and
 `test_results_integration.xml`. See [the validation results](TEST_RESULTS_transformer.md).
 Plain `pytest` runs the same active suites without coverage measurement. Temporary
 test files are isolated in `.pytest_tmp_transformer` beneath the working directory.
+
+## License
+
+This project is licensed under the [MIT License](LICENSE).
