@@ -1,0 +1,12 @@
+[run]
+branch = True
+source =
+    data_transformer
+data_file = .coverage.integration
+
+[report]
+show_missing = True
+precision = 2
+fail_under = 96
+# Count all production code, including existing pragma comments in imported revisions.
+exclude_lines =

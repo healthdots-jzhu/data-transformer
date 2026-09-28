@@ -1,0 +1,45 @@
+{
+  "_comment": "Minimal DOCUMENT-ONLY schema (no line_fields => no line-item processing at all) with French support written inline (i18n blocks) and an enforced target JSON Schema. Use it as a template for new data types.",
+  "schema_name": "person",
+  "source_formats": ["json", "xml", "csv"],
+  "languages": ["en", "fr"],
+  "stopwords": ["of", "the", "a", "an", "for", "and", "s"],
+
+  "document_fields": {
+    "full_name": {"validator": "person_name", "signature": true,
+                  "aliases": ["full name", "name", "person name"],
+                  "i18n": {"fr": {"aliases": ["nom complet", "nom", "nom de la personne",
+                                              "prénom et nom", "nom et prénom"]}}},
+    "date_of_birth": {"validator": "date", "signature": true,
+                      "params": {"max_age_days": null},
+                      "aliases": ["date of birth", "birth date", "dob"],
+                      "i18n": {"fr": {"aliases": ["date de naissance", "naissance", "ddn"]}}},
+    "email": {"validator": "regex", "signature": true,
+              "params": {"patterns": ["[^@\\s]+@[^@\\s]+\\.[A-Za-z]{2,}"],
+                         "message": "not a valid e-mail address"},
+              "aliases": ["email", "email address", "e-mail"],
+              "i18n": {"fr": {"aliases": ["courriel", "adresse courriel", "adresse électronique",
+                                          "courrier électronique", "adresse de courriel"]}}}
+  },
+
+  "output": {"type_key": "schema", "fields_key": "fields"},
+
+  "target_schema": {
+    "_comment": "Describes the OUTPUT JSON (shaped by 'output'), not the source. Requires the jsonschema package.",
+    "type": "object",
+    "required": ["schema", "fields"],
+    "additionalProperties": false,
+    "properties": {
+      "schema": {"const": "person"},
+      "fields": {
+        "type": "object",
+        "required": ["full_name", "date_of_birth", "email"],
+        "properties": {
+          "full_name": {"type": "string", "minLength": 3},
+          "date_of_birth": {"type": "string", "pattern": "^\\d{4}-\\d{2}-\\d{2}$"},
+          "email": {"type": "string"}
+        }
+      }
+    }
+  }
+}

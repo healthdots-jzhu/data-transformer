@@ -1,0 +1,14 @@
+{
+  "_comment": "Wellness spending claims: vision's structure with different names and a lower price limit. The explicit claim type (any language) tells wellness and vision apart.",
+  "extends": ["vision.json"],
+  "schema_name": "wellness",
+  "line_containers": ["products", "purchases", "items", "expenses"],
+  "i18n": {"fr": {"line_containers": ["produits", "achats", "articles", "dépenses"]}},
+  "discriminator": {
+    "values": ["wellness","health spending","hsa","wellness spending account","wsa",
+               "lifestyle","wellness account","lifestyle spending","lsa"],
+    "i18n": {"fr": {"values": ["mieux-être","bien-être","compte de mieux-être","compte de dépenses santé",
+                               "compte santé","compte de style de vie","style de vie","dépenses de mieux-être"]}}
+  },
+  "limits": {"line_price": [0.01, 2000]}
+}

@@ -1,0 +1,31 @@
+{
+  "_comment": "French overlay of drug.json.",
+  "i18n": {"fr": {"line_containers": ["médicaments", "ordonnances", "prescriptions"]}},
+  "discriminator": {"i18n": {"fr": {"values": ["médicaments","médicament","ordonnance","ordonnances",
+      "pharmacie","assurance médicaments","régime d'assurance médicaments","médicaments sur ordonnance"]}}},
+
+  "document_fields": {
+    "store_name": {"i18n": {"fr": {"aliases": ["nom du magasin","magasin","fournisseur","nom du fournisseur",
+        "détaillant","marchand","nom de la pharmacie","pharmacie","clinique","nom de la clinique"]}}},
+    "date_of_service": {"i18n": {"fr": {"aliases": ["date de service","date du service","date de remplissage",
+        "date de délivrance","date de dispensation"], "weak_aliases": ["date"]}}}
+  },
+
+  "line_fields": {
+    "din": {"i18n": {"fr": {"aliases": ["din","numéro d'identification du médicament",
+        "identification du médicament","identifiant du médicament","numéro du médicament","npn",
+        "code du médicament"]}}},
+    "drug_name": {"i18n": {"fr": {"aliases": ["nom du médicament","médicament","nom de la prescription",
+        "médication"]}}},
+    "drug_cost": {"i18n": {"fr": {"aliases": ["coût du médicament","prix du médicament",
+        "coût des ingrédients","coût de la médication"], "weak_aliases": ["coût","prix"]}}},
+    "dispensing_fee": {"i18n": {"fr": {"aliases": ["frais d'exécution","frais de service pharmaceutique",
+        "frais de délivrance","frais de dispensation","honoraires du pharmacien","frais de pharmacie"],
+        "weak_aliases": ["frais","honoraires"]}}},
+    "quantity": {"i18n": {"fr": {"aliases": ["quantité","unités","quantité délivrée","nombre d'unités",
+        "quantité remise"]}}},
+    "days_supply": {"i18n": {"fr": {"aliases": ["jours de traitement","nombre de jours de traitement",
+        "durée du traitement en jours","jours d'approvisionnement","approvisionnement en jours",
+        "jours fournis"], "weak_aliases": ["jours"]}}}
+  }
+}

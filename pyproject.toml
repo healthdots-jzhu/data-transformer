@@ -1,0 +1,34 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "data-transformer"
+version = "0.1.0"
+description = "Config-driven detection, validation and conversion of JSON/XML/CSV data into target JSON schemas"
+readme = "README.md"
+requires-python = ">=3.8"
+# jsonschema is a core dependency: any config with a "target_schema" needs it, and loading such a
+# config without it raises ConfigError (output validation is never skipped silently).
+dependencies = ["jsonschema>=4.0"]
+
+[project.optional-dependencies]
+xml  = ["defusedxml>=0.7"]   # hardened XML parsing (recommended when reading untrusted XML)
+yaml = ["PyYAML>=6.0"]       # only for .yaml/.yml config files
+test = ["pytest>=7.0"]
+
+[project.scripts]
+data-transformer = "data_transformer.__main__:main"
+
+[tool.setuptools]
+packages = ["data_transformer", "data_transformer.example_configs"]
+
+[tool.setuptools.package-dir]
+"data_transformer.example_configs" = "configs"
+
+[tool.setuptools.package-data]
+"data_transformer.example_configs" = ["*.json"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]                 # lets `pytest` import data_transformer straight from a checkout

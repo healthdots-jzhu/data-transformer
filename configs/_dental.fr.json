@@ -1,0 +1,36 @@
+{
+  "_comment": "French overlay of dental.json (names of the dental fields, type values and procedure containers).",
+  "i18n": {"fr": {"line_containers": ["procédures", "actes", "actes dentaires", "traitements",
+                                      "interventions", "procédures dentaires"]}},
+  "discriminator": {"i18n": {"fr": {"values": ["dentaire", "soins dentaires", "réclamation dentaire",
+                                               "dentiste", "orthodontie", "orthodontique", "dentisterie"]}}},
+
+  "document_fields": {
+    "policy_number": {"i18n": {"fr": {"aliases": ["numéro de police","police","numéro de groupe","groupe",
+                                                  "numéro de régime","numéro de contrat"]}}},
+    "certificate_number": {"i18n": {"fr": {"aliases": ["numéro de certificat","certificat","numéro de membre",
+        "numéro d'adhérent","identifiant du membre","numéro d'employé","identifiant du participant",
+        "numéro d'assuré"]}}},
+    "provider_id": {"i18n": {"fr": {"aliases": ["numéro unique du dentiste","identifiant unique du dentiste",
+        "numéro du dentiste","identifiant du dentiste","numéro de fournisseur","identifiant du fournisseur",
+        "numéro unique d'identification du dentiste","numéro d'identification unique"]}}},
+    "practitioner_name": {"i18n": {"fr": {"aliases": ["nom du praticien","nom du fournisseur","nom du dentiste",
+        "nom du médecin","nom du thérapeute","nom du professionnel"]}}},
+    "date_of_service": {"i18n": {"fr": {"aliases": ["date de service","date du service","date de traitement",
+        "date du traitement","date de la visite","date de visite"], "weak_aliases": ["date"]}}}
+  },
+
+  "line_fields": {
+    "procedure_code": {"i18n": {"fr": {"aliases": ["code de procédure","code de service","code de traitement",
+        "code dentaire","code d'acte","code cdt","code cda","procédure","acte"], "weak_aliases": ["code"]}}},
+    "dentist_fee": {"i18n": {"fr": {"aliases": ["honoraires du dentiste","frais du dentiste","frais dentaires",
+        "honoraires dentaires","frais de procédure","honoraires professionnels","honoraires"],
+        "weak_aliases": ["frais","honoraires"]}}},
+    "lab_charge": {"i18n": {"fr": {"aliases": ["frais de laboratoire","frais de labo","coût du laboratoire",
+        "coût de laboratoire","frais de lab"], "weak_aliases": ["labo","laboratoire"]}}},
+    "tooth_code": {"i18n": {"fr": {"aliases": ["code de dent","dent","numéro de dent",
+        "identifiant de la dent"]}}},
+    "tooth_surface": {"i18n": {"fr": {"aliases": ["surface de la dent","surface","surfaces",
+        "code de surface","face","faces"]}}}
+  }
+}

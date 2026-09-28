@@ -1,0 +1,45 @@
+{
+  "_comment": "Prescription drug claims. French names come from _drug.fr.json.",
+  "extends": ["_common.json", "_common.fr.json", "_drug.fr.json"],
+  "schema_name": "drug",
+  "source_formats": ["json", "xml", "csv"],
+  "csv": {"layout": "lines"},
+  "line_containers": ["drugs", "medications", "prescriptions"],
+  "discriminator": {"values": ["drug","drugs","prescription","pharmacy","rx","medication","prescription drug"]},
+  "limits": {"drug_cost": [0.01, 10000], "dispensing_fee": [0, 50]},
+
+  "document_fields": {
+    "store_name": {"validator": "text", "required": false, "warn_if_missing": true, "owner": "provider",
+      "aliases": ["store name","store","vendor","vendor name","retailer","merchant","supplier",
+                  "pharmacy name","pharmacy","clinic name","clinic","provider name"]},
+    "date_of_service": {"validator": "date", "required": false, "warn_if_missing": true, "owner": "provider",
+      "aliases": ["date of service","service date","fill date","date dispensed","dispensed date"],
+      "weak_aliases": ["date"]}
+  },
+
+  "line_fields": {
+    "din": {"validator": "regex", "owner": "provider", "signature": true,
+      "params": {"patterns": ["\\d{8}"],
+                 "hints": [{"pattern": "\\d{7}", "message": "DIN has 7 digits; a DIN has 8 (was a leading zero dropped?)"}],
+                 "message": "not a valid DIN/NPN (8 digits)"},
+      "aliases": ["din","drug identification number","drug id","drug number","npn","drug code"]},
+    "drug_name": {"validator": "text", "required": false, "owner": "provider", "translatable": true,
+      "params": {"min_length": 2}, "signature": true,
+      "aliases": ["drug name","drug","medication","medicine","prescription name","medication name"]},
+    "drug_cost": {"validator": "money", "owner": "provider", "signature": true, "sums_to_total": true,
+      "params": {"limit": "drug_cost"},
+      "aliases": ["drug cost","drug price","ingredient cost","medication cost","cost of drug"],
+      "weak_aliases": ["cost","price"]},
+    "dispensing_fee": {"validator": "money", "owner": "provider", "signature": true, "sums_to_total": true,
+      "params": {"limit": "dispensing_fee"},
+      "aliases": ["dispensing fee","pharmacy fee","dispense fee","dispensing"],
+      "weak_aliases": ["fee"]},
+    "quantity": {"validator": "number", "required": false, "owner": "provider", "signature": true,
+      "params": {"minimum": 0.01, "maximum": 1000},
+      "aliases": ["quantity","units","quantity dispensed","number of units"]},
+    "days_supply": {"validator": "number", "required": false, "owner": "provider", "signature": true,
+      "params": {"minimum": 1, "maximum": 365, "integer": true},
+      "aliases": ["days supply","day supply","supply days","days of supply","duration days"],
+      "weak_aliases": ["days"]}
+  }
+}

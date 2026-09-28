@@ -1,0 +1,53 @@
+{
+  "_comment": "Dental claims. One claim = document-level fields + a list of procedures (line items). French names come from _dental.fr.json.",
+  "extends": ["_common.json", "_common.fr.json", "_dental.fr.json"],
+  "schema_name": "dental",
+  "source_formats": ["json", "xml", "csv"],
+  "csv": {"layout": "lines"},
+  "line_containers": ["procedures", "procedure lines", "treatments", "dental procedures"],
+  "discriminator": {"values": ["dental","dentist","dental claim","dental care","orthodontic","orthodontics"]},
+  "limits": {"dentist_fee": [0.01, 5000], "lab_charge": [0, 3000]},
+
+  "document_fields": {
+    "policy_number": {"validator": "identifier", "owner": "patient",
+      "aliases": ["policy number","policy","group number","plan number","contract number"]},
+    "certificate_number": {"validator": "identifier", "owner": "patient", "signature": true,
+      "aliases": ["certificate number","certificate","member number","member id","employee id",
+                  "participant id","subscriber id"]},
+    "provider_id": {"validator": "identifier", "owner": "provider", "signature": true,
+      "aliases": ["dentist unique number","dentist unique id","dentist unique","dentist id","dentist number",
+                  "provider id","provider number","dentist uin","uin","unique identifier"]},
+    "practitioner_name": {"validator": "person_name", "required": false, "owner": "provider",
+      "aliases": ["practitioner name","provider name","dentist name","doctor name","therapist name","physician name"]},
+    "date_of_service": {"validator": "date", "owner": "provider",
+      "aliases": ["date of service","service date","treatment date","date of treatment","visit date",
+                  "date of visit","fill date","date dispensed","dispensed date"],
+      "weak_aliases": ["date"]}
+  },
+
+  "line_fields": {
+    "procedure_code": {"validator": "regex", "owner": "provider", "signature": true,
+      "params": {"upper": true, "patterns": ["\\d{5}", "D\\d{4}"],
+                 "message": "not a valid dental procedure code (5-digit CDA or CDT 'Dnnnn')"},
+      "aliases": ["procedure code","service code","treatment code","dental code","cdt code","cda code","procedure"],
+      "weak_aliases": ["code"]},
+    "dentist_fee": {"validator": "money", "owner": "provider", "signature": true, "sums_to_total": true,
+      "params": {"limit": "dentist_fee"},
+      "aliases": ["dentist fee","dental fee","procedure fee","professional fee"],
+      "weak_aliases": ["fee", "charge"]},
+    "lab_charge": {"validator": "money", "required": false, "owner": "provider", "signature": true,
+      "sums_to_total": true, "params": {"limit": "lab_charge"},
+      "aliases": ["lab charge","lab fee","laboratory charge","laboratory fee","lab cost"],
+      "weak_aliases": ["lab"]},
+    "tooth_code": {"validator": "regex", "required": false, "owner": "provider", "signature": true,
+      "params": {"upper": true,
+                 "patterns": ["[1-4][1-8]|[5-8][1-5]", "[1-9]|[12]\\d|3[0-2]", "[A-T]"],
+                 "message": "not a valid tooth code (FDI 11-48/51-85 or Universal 1-32/A-T)"},
+      "aliases": ["tooth code","tooth","tooth number","tooth id"]},
+    "tooth_surface": {"validator": "regex", "required": false, "owner": "provider", "signature": true,
+      "params": {"upper": true, "strip": "[\\s,/\\-]", "unique_chars": true,
+                 "patterns": ["[MODBLFIV]{1,5}"],
+                 "message": "not a valid tooth surface (combination of M,O,D,B,L,F,I,V)"},
+      "aliases": ["tooth surface","surface","surfaces","surface code"]}
+  }
+}

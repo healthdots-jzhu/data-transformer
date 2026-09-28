@@ -1,0 +1,48 @@
+{
+  "_comment": "French overlay of extended_health.json.",
+  "i18n": {"fr": {"line_containers": ["services", "visites", "traitements", "séances", "consultations",
+                                      "lignes de service"]}},
+  "discriminator": {"i18n": {"fr": {"values": ["soins de santé complémentaires",
+      "assurance maladie complémentaire","paramédical","soins paramédicaux","santé","praticien",
+      "santé complémentaire","professionnel de la santé","frais médicaux"]}}},
+
+  "vocabularies": {
+    "practitioner_types": {
+      "massage therapist": {"i18n": {"fr": {"aliases": ["massothérapeute","massothérapie","massage",
+                                                        "massothérapeute agréé","massothérapeute autorisé"]}}},
+      "physiotherapist": {"i18n": {"fr": {"aliases": ["physiothérapeute","physiothérapie","physio",
+                                                      "kinésithérapeute"]}}},
+      "chiropractor": {"i18n": {"fr": {"aliases": ["chiropraticien","chiropraticienne","chiropratique"]}}},
+      "psychologist": {"i18n": {"fr": {"aliases": ["psychologue","psychologie","psychothérapeute",
+                                                   "psychothérapie","conseiller","conseillère","santé mentale"]}}},
+      "naturopath": {"i18n": {"fr": {"aliases": ["naturopathe","naturopathie","docteur en naturopathie"]}}},
+      "acupuncturist": {"i18n": {"fr": {"aliases": ["acupuncteur","acupunctrice","acupuncture"]}}},
+      "osteopath": {"i18n": {"fr": {"aliases": ["ostéopathe","ostéopathie"]}}},
+      "dietitian": {"i18n": {"fr": {"aliases": ["diététiste","diététicien","diététicienne","nutritionniste"]}}},
+      "speech therapist": {"i18n": {"fr": {"aliases": ["orthophoniste","orthophonie"]}}},
+      "occupational therapist": {"i18n": {"fr": {"aliases": ["ergothérapeute","ergothérapie"]}}},
+      "podiatrist": {"i18n": {"fr": {"aliases": ["podiatre","podiatrie","soins des pieds","pédicure"]}}},
+      "social worker": {"i18n": {"fr": {"aliases": ["travailleur social","travailleuse sociale","travail social"]}}}
+    }
+  },
+
+  "document_fields": {
+    "practitioner_type": {"i18n": {"fr": {"aliases": ["type de praticien","type de fournisseur","spécialité",
+        "discipline","catégorie de praticien","profession"]}}},
+    "practitioner_name": {"i18n": {"fr": {"aliases": ["nom du praticien","nom du fournisseur",
+        "nom du thérapeute","nom du professionnel","nom du médecin"],
+        "weak_aliases": ["praticien","fournisseur","thérapeute","professionnel"]}}},
+    "license_number": {"i18n": {"fr": {"aliases": ["numéro de permis","permis","numéro d'inscription",
+        "inscription","numéro de l'ordre","numéro de licence","licence"]}}}
+  },
+
+  "line_fields": {
+    "date_of_service": {"i18n": {"fr": {"aliases": ["date de service","date du service","date de traitement",
+        "date de la visite","date de visite","date de la séance"], "weak_aliases": ["date"]}}},
+    "expense_amount": {"i18n": {"fr": {"aliases": ["montant de la dépense","montant du service",
+        "coût de la visite","coût du traitement","montant facturé","dépense","frais facturés",
+        "montant des frais"], "weak_aliases": ["montant","coût","frais","tarif"]}}},
+    "duration": {"i18n": {"fr": {"aliases": ["durée","durée en minutes","minutes","durée de la visite",
+        "durée de la séance","durée du traitement"]}}}
+  }
+}

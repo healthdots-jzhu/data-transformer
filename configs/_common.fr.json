@@ -1,0 +1,79 @@
+{
+  "_comment": "French overlay of _common.json: enables French, adds the French abbreviation dictionary, ownership words, type-key names and the French names of the shared patient / provider / total fields.",
+
+  "languages": ["en", "fr"],
+
+  "i18n": {
+    "fr": {
+      "abbreviation_rules": [
+        {"abbreviation": "qte",  "expansion": "quantite", "confidence": 0.98},
+        {"abbreviation": "adr",  "expansion": "adresse",  "confidence": 0.97},
+        {"abbreviation": "mnt",  "expansion": "montant",  "confidence": 0.92},
+        {"abbreviation": "no",   "expansion": "numero",   "confidence": 0.95,
+         "following": ["police","certificat","permis","licence","telephone","dent","dentiste","membre",
+                       "fournisseur","identification","assurance","reclamation","participant","employe",
+                       "adherent","unique","enregistrement","groupe","contrat","regime"]},
+        {"abbreviation": "n",    "expansion": "numero",   "confidence": 0.92,
+         "following": ["police","certificat","permis","licence","telephone","dent","dentiste","membre",
+                       "fournisseur","identification","assurance","groupe","contrat","regime"],
+         "previous":  ["police","certificat","permis","dentiste","membre","telephone","dent","fournisseur"]},
+        {"abbreviation": "prat", "expansion": "praticien", "confidence": 0.85,
+         "following": ["nom","type","adresse","telephone"]},
+        {"abbreviation": "proc", "expansion": "procedure", "confidence": 0.85, "following": ["code","frais"]},
+        {"abbreviation": "dt",   "expansion": "date",      "confidence": 0.95,
+         "previous": ["service","achat","traitement","visite"]},
+        {"abbreviation": "min",  "expansion": "minutes",   "confidence": 0.95,
+         "previous": ["duree","seance","longueur"]}
+      ],
+
+      "disqualifying_key_words": ["min","minimum","max","maximum","limite","plafond","maximal","minimal",
+        "solde","restant","franchise","coassurance","quote-part","ticket moderateur","taxe","tps","tvq",
+        "tvh","rabais","remise","escompte","pourboire","remboursement","pourcentage","precedent",
+        "anterieur","estime","estimee","approuve","approuvee","rembourse","remboursee","paye","payee",
+        "net","nette"],
+
+      "owner_role_keywords": {
+        "patient":  ["patient","patiente","assuré","assurée","membre","réclamant","réclamante","adhérent",
+                     "adhérente","participant","participante","employé","employée","client","cliente",
+                     "domicile","personne","dépendant"],
+        "provider": ["fournisseur","fournisseuse","praticien","praticienne","dentiste","médecin","docteur",
+                     "docteure","thérapeute","clinique","magasin","pharmacie","pharmacien","pharmacienne",
+                     "vendeur","détaillant","marchand","opticien","opticienne","boutique","commerce"]
+      },
+
+      "neutral_container_words": ["réclamation","demande","données","corps","entête","info","information",
+        "informations","détail","détails","coordonnées","contact","contacts","dossier","soumission","principal"]
+    }
+  },
+
+  "discriminator": {
+    "i18n": {"fr": {
+      "aliases": ["type de réclamation","type de demande","type de prestation","catégorie de réclamation",
+                  "catégorie de prestation","type de garantie"],
+      "weak_aliases": ["type","catégorie","prestation"]
+    }}
+  },
+
+  "document_fields": {
+    "patient_name": {"i18n": {"fr": {"aliases": [
+      "nom du patient","nom de la patiente","nom de l'assuré","nom de l'assurée","nom du membre",
+      "nom de l'adhérent","nom du participant","nom du réclamant","nom de la personne assurée",
+      "nom complet du patient","patient","assuré","assurée","réclamant","réclamante"]}}},
+    "patient_address": {"i18n": {"fr": {"aliases": [
+      "adresse du patient","adresse","adresse domiciliaire","adresse du domicile","adresse du membre",
+      "adresse de l'assuré","adresse personnelle"]}}},
+    "patient_phone": {"i18n": {"fr": {"aliases": [
+      "téléphone du patient","téléphone","numéro de téléphone","téléphone domicile","téléphone résidentiel",
+      "téléphone du membre","cellulaire","mobile"]}}},
+    "provider_address": {"i18n": {"fr": {"aliases": [
+      "adresse","adresse du fournisseur","adresse du praticien","adresse du magasin","adresse de la clinique",
+      "adresse du dentiste","adresse de la pharmacie","adresse postale","adresse municipale"]}}},
+    "provider_phone": {"i18n": {"fr": {"aliases": [
+      "téléphone","numéro de téléphone","téléphone du fournisseur","téléphone du praticien",
+      "téléphone de la clinique","téléphone du magasin","téléphone de la pharmacie","téléphone du dentiste",
+      "téléphone du bureau","numéro de contact","cellulaire"]}}},
+    "total_amount": {"i18n": {"fr": {"aliases": [
+      "montant total","total","total de la réclamation","total général","total facturé",
+      "montant de la réclamation","total des dépenses"]}}}
+  }
+}

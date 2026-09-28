@@ -1,0 +1,61 @@
+{
+  "_comment": "Extended health (paramedical) claims; XML/JSON only. Per-visit caps come from the practitioner_types vocabulary via the rules block. French names come from _extended_health.fr.json.",
+  "extends": ["_common.json", "_common.fr.json", "_extended_health.fr.json"],
+  "schema_name": "extended_health",
+  "source_formats": ["json", "xml"],
+  "line_containers": ["services", "service lines", "visits", "treatments", "sessions"],
+  "discriminator": {"values": ["extended health","ehc","paramedical","health","practitioner",
+     "extended health care","extended healthcare","health practitioner"]},
+  "limits": {"expense_amount": [0.01, 5000]},
+
+  "vocabularies": {
+    "practitioner_types": {
+      "massage therapist": {"aliases": ["massage","rmt","registered massage therapist","massage therapy"], "max_amount": 300},
+      "physiotherapist": {"aliases": ["physio","physiotherapy","physical therapist","physical therapy","pt"], "max_amount": 300},
+      "chiropractor": {"aliases": ["chiro","chiropractic"], "max_amount": 250},
+      "psychologist": {"aliases": ["psychology","psychotherapist","psychotherapy","counsellor","counselor","mental health"], "max_amount": 500},
+      "naturopath": {"aliases": ["naturopathic doctor","naturopathy","nd"], "max_amount": 300},
+      "acupuncturist": {"aliases": ["acupuncture"], "max_amount": 250},
+      "osteopath": {"aliases": ["osteopathy","osteopathic"], "max_amount": 250},
+      "dietitian": {"aliases": ["dietician","nutritionist","nutrition"], "max_amount": 250},
+      "speech therapist": {"aliases": ["speech language pathologist","slp","speech therapy"], "max_amount": 400},
+      "occupational therapist": {"aliases": ["ot","occupational therapy"], "max_amount": 400},
+      "podiatrist": {"aliases": ["chiropodist","podiatry","foot care"], "max_amount": 300},
+      "social worker": {"aliases": ["msw","social work"], "max_amount": 400}
+    }
+  },
+
+  "document_fields": {
+    "practitioner_type": {"validator": "vocabulary", "owner": "provider", "signature": true,
+      "params": {"vocabulary": "practitioner_types"},
+      "aliases": ["practitioner type","type of practitioner","provider type","specialty","discipline",
+                  "practitioner category","profession"]},
+    "practitioner_name": {"validator": "person_name", "owner": "provider", "signature": true,
+      "aliases": ["practitioner name","provider name","dentist name","doctor name","therapist name","physician name"],
+      "weak_aliases": ["practitioner","provider","therapist","doctor"]},
+    "license_number": {"validator": "identifier", "owner": "provider", "signature": true,
+      "aliases": ["license number","license","registration number","registration",
+                  "license registration number","college number"]}
+  },
+
+  "line_fields": {
+    "date_of_service": {"validator": "date", "owner": "provider", "inherit": true,
+      "aliases": ["date of service","service date","treatment date","date of treatment","visit date","date of visit"],
+      "weak_aliases": ["date"]},
+    "expense_amount": {"validator": "money", "owner": "provider", "signature": true,
+      "sums_to_total": true, "total_equivalent": true, "params": {"limit": "expense_amount"},
+      "aliases": ["expense amount","service amount","visit cost","treatment cost","amount charged","expense","fee charged"],
+      "weak_aliases": ["amount","cost","fee","charge"]},
+    "duration": {"validator": "number", "required": false, "owner": "provider", "signature": true,
+      "params": {"minimum": 1, "maximum": 480, "integer": false},
+      "aliases": ["duration","duration minutes","minutes","length of visit","session length",
+                  "treatment duration","visit length"]}
+  },
+
+  "rules": [
+    {"kind": "max_by_vocabulary", "amount_field": "expense_amount", "type_field": "practitioner_type",
+     "vocabulary": "practitioner_types", "attribute": "max_amount", "default": 1500},
+    {"kind": "rate_limit", "amount_field": "expense_amount", "unit_field": "duration",
+     "max_rate": 10, "unit_label": "minutes"}
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "_comment": "Vision claims: a list of purchased products. Wellness (wellness.json) has the same fields, so the explicit claim type is what tells them apart. French names come from _vision.fr.json.",
+  "extends": ["_common.json", "_common.fr.json", "_vision.fr.json"],
+  "schema_name": "vision",
+  "source_formats": ["json", "xml", "csv"],
+  "csv": {"layout": "lines"},
+  "line_containers": ["products", "purchases", "items"],
+  "discriminator": {"values": ["vision","optical","eye care","eyewear","glasses","vision care","eyeglasses"]},
+  "limits": {"line_price": [0.01, 3000]},
+
+  "document_fields": {
+    "store_name": {"validator": "text", "required": false, "warn_if_missing": true, "owner": "provider",
+      "aliases": ["store name","store","vendor","vendor name","retailer","merchant","supplier","optical store","clinic"]}
+  },
+  "line_fields": {
+    "product_name": {"validator": "text", "owner": "provider", "signature": true, "translatable": true,
+      "params": {"min_length": 2},
+      "aliases": ["product name","product","item name","product description","item description"],
+      "weak_aliases": ["description","item"]},
+    "price": {"validator": "money", "owner": "provider", "signature": true, "sums_to_total": true,
+      "total_equivalent": true, "params": {"limit": "line_price"},
+      "aliases": ["price","purchase price","item price","retail price"],
+      "weak_aliases": ["amount","cost","charge"]},
+    "date_of_purchase": {"validator": "date", "owner": "provider", "signature": true, "inherit": true,
+      "aliases": ["date of purchase","purchase date","date purchased","receipt date","transaction date",
+                  "date of service","service date"],
+      "weak_aliases": ["date"]}
+  }
+}

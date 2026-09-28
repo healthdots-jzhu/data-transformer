@@ -1,0 +1,73 @@
+{
+  "_comment": "Shared English fragment: abbreviation dictionary, ownership words, type-key names and the patient / provider / total fields used by all claim schemas. French names are added by _common.fr.json.",
+
+  "stopwords": ["of", "the", "a", "an", "for", "and", "s"],
+
+  "abbreviation_rules": [
+    {"abbreviation": "qty",     "expansion": "quantity",     "confidence": 0.98},
+    {"abbreviation": "addr",    "expansion": "address",      "confidence": 0.97},
+    {"abbreviation": "amt",     "expansion": "amount",       "confidence": 0.95},
+    {"abbreviation": "tel",     "expansion": "phone",        "confidence": 0.95},
+    {"abbreviation": "desc",    "expansion": "description",  "confidence": 0.95},
+    {"abbreviation": "num",     "expansion": "number",       "confidence": 0.95},
+    {"abbreviation": "nbr",     "expansion": "number",       "confidence": 0.95},
+    {"abbreviation": "licence", "expansion": "license",      "confidence": 1.00},
+    {"abbreviation": "mins",    "expansion": "minutes",      "confidence": 0.95},
+    {"abbreviation": "no", "expansion": "number", "confidence": 0.95,
+     "previous": ["policy","certificate","cert","unique","license","registration","phone","tooth","provider","dentist","member"]},
+    {"abbreviation": "cert", "expansion": "certificate", "confidence": 0.95, "following": ["number","no","num","id"]},
+    {"abbreviation": "lic",  "expansion": "license",     "confidence": 0.95, "following": ["number","no","num"]},
+    {"abbreviation": "reg",  "expansion": "registration","confidence": 0.85, "following": ["number","no","num"]},
+    {"abbreviation": "dr",   "expansion": "doctor",      "confidence": 0.85, "following": ["name","address","addr","phone"]},
+    {"abbreviation": "prov", "expansion": "provider",    "confidence": 0.85, "following": ["name","address","addr","phone","number"]},
+    {"abbreviation": "prac", "expansion": "practitioner","confidence": 0.85, "following": ["name","type","address","phone"]},
+    {"abbreviation": "proc", "expansion": "procedure",   "confidence": 0.85, "following": ["code","fee"]},
+    {"abbreviation": "rx",   "expansion": "prescription","confidence": 0.90, "following": ["name","number"]},
+    {"abbreviation": "svc",  "expansion": "service",     "confidence": 0.95, "following": ["date","dt","code","amount"]},
+    {"abbreviation": "srv",  "expansion": "service",     "confidence": 0.85, "following": ["date","dt","code","amount"]},
+    {"abbreviation": "pt",   "expansion": "patient",     "confidence": 0.95, "following": ["name","addr","address","phone","tel"]},
+    {"abbreviation": "dt",   "expansion": "date",        "confidence": 0.95, "previous": ["srv","svc","service","purchase","treatment","visit"]},
+    {"abbreviation": "min",  "expansion": "minutes",     "confidence": 0.95, "previous": ["duration","session","length"]},
+    {"abbreviation": "ph",   "expansion": "phone",       "confidence": 0.95, "following": ["number","no","num"]}
+  ],
+
+  "disqualifying_key_words": ["min","minimum","max","maximum","limit","balance","remaining",
+    "deductible","copay","coinsurance","tax","gst","hst","pst","discount","tip","refund",
+    "percent","percentage","previous","prior","estimated","approved","reimbursed","paid","net"],
+
+  "owner_role_keywords": {
+    "patient":  ["patient","member","insured","claimant","subscriber","employee","participant",
+                 "home","patients","customer","customers","dependent"],
+    "provider": ["provider","practitioner","dentist","doctor","therapist","physician","clinic",
+                 "store","pharmacy","vendor","retailer","merchant","supplier","optician"]
+  },
+  "neutral_container_words": ["claim","request","data","body","payload","header","info",
+    "information","detail","details","contact","contacts","record","submission","main"],
+
+  "discriminator": {
+    "aliases": ["claim type","benefit type","claim category","benefit category","type of claim"],
+    "weak_aliases": ["type","category","benefit"]
+  },
+
+  "total_field": "total_amount",
+  "limits": { "total_amount": [0.01, 50000] },
+
+  "document_fields": {
+    "patient_name": {"validator": "person_name", "owner": "patient",
+      "aliases": ["patient name","patient","member name","insured name","claimant name","claimant",
+                  "patient full name","name of patient","insured","subscriber name"]},
+    "patient_address": {"validator": "address", "required": false, "owner": "patient", "explicit_owner": true,
+      "aliases": ["patient address","address","home address","member address"]},
+    "patient_phone": {"validator": "phone", "required": false, "owner": "patient", "explicit_owner": true,
+      "aliases": ["patient phone","phone","phone number","telephone","home phone","mobile","member phone"]},
+    "provider_address": {"validator": "address", "owner": "provider",
+      "aliases": ["address","provider address","practitioner address","store address","clinic address",
+                  "dentist address","pharmacy address","street address"]},
+    "provider_phone": {"validator": "phone", "owner": "provider",
+      "aliases": ["phone","phone number","telephone","contact number","contact phone","mobile",
+                  "provider phone","practitioner phone","clinic phone","store phone","pharmacy phone",
+                  "dentist phone","office phone"]},
+    "total_amount": {"validator": "money", "required": false, "params": {"limit": "total_amount"},
+      "aliases": ["total amount","total","claim total","grand total","total charged","total expense","claim amount"]}
+  }
+}

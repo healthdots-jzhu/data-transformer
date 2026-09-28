@@ -1,0 +1,21 @@
+{
+  "_comment": "French overlay of vision.json.",
+  "i18n": {"fr": {"line_containers": ["produits", "achats", "articles"]}},
+  "discriminator": {"i18n": {"fr": {"values": ["vision","optique","soins de la vue","lunettes",
+      "articles d'optique","soins oculaires","lunetterie","verres","soins visuels","vue"]}}},
+
+  "document_fields": {
+    "store_name": {"i18n": {"fr": {"aliases": ["nom du magasin","magasin","fournisseur","nom du fournisseur",
+        "détaillant","marchand","magasin d'optique","clinique","nom de la clinique"]}}}
+  },
+  "line_fields": {
+    "product_name": {"i18n": {"fr": {"aliases": ["nom du produit","produit","nom de l'article",
+        "description du produit","description de l'article","article"],
+        "weak_aliases": ["description","article"]}}},
+    "price": {"i18n": {"fr": {"aliases": ["prix","prix d'achat","prix de l'article","prix de détail",
+        "prix du produit"], "weak_aliases": ["montant","coût","frais"]}}},
+    "date_of_purchase": {"i18n": {"fr": {"aliases": ["date d'achat","date de l'achat",
+        "date de la transaction","date du reçu","date de service","date du service"],
+        "weak_aliases": ["date"]}}}
+  }
+}
